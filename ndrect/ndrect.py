@@ -21,24 +21,22 @@ class IsAligned(ABC):
         return len(self.shape)
 
     def fill_into(
-        self, bounding: IsAligned, fill_order: Sequence[DimensionName] = None
+        self,
+        bounding: Mapping[DimensionName, DimensionLength],
+        fill_order: Sequence[DimensionName] = None,
     ) -> NDRectComplex:
         filled = self
         fill_order = fill_order or self.shape.keys()
         prv_shape = []
         nxt_shape = list(self.shape.keys())
         for name in fill_order:
-            prv_fill = {
-                d: s for d, s in bounding.shape.items() if d in prv_shape
-            }
-            nxt_fill = {
-                d: s for d, s in filled.shape.items() if d in nxt_shape
-            }
+            prv_fill = {d: s for d, s in bounding.items() if d in prv_shape}
+            nxt_fill = {d: s for d, s in self.shape.items() if d in nxt_shape}
             filled += NDRect(
                 {
                     **prv_fill,
                     **nxt_fill,
-                    **{name: bounding.shape[name] - self.shape[name]},
+                    **{name: bounding[name] - self.shape[name]},
                 }
             )
             filled @= name
