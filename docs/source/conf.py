@@ -1,3 +1,9 @@
+import sys
+from pathlib import Path
+
+# Add the project root directory to sys.path
+sys.path.insert(0, Path(__file__).parents[2].as_posix())
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
