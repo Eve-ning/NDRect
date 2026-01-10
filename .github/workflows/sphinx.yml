@@ -20,7 +20,7 @@ jobs:
           uv python pin 3.14
       - name: Install dependencies for docs
         run: |
-          uv sync -g docs
+          uv sync --group docs
       - name: Build HTML
         run: |
           sphinx-build -b html docs/source docs/build/html
