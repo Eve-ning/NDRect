@@ -1,0 +1,39 @@
+name: "Sphinx: Render docs"
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install `uv`
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install uv
+      - name: Set up Python with `uv`
+        run: |
+          uv python pin 3.14
+      - name: Install dependencies for docs
+        run: |
+          uv sync --group docs
+      - name: Build HTML
+        run: |
+          uv run sphinx-build docs/source docs/build/html
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-docs
+          path: docs/build/html/
+      - name: Create .nojekyll
+        run: echo > docs/build/html/.nojekyll
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/build/html
