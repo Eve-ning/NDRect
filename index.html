@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ndrect documentation &mdash; ndrect 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            ndrect
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">ndrect documentation</a></li>
+<li><a class="reference internal" href="#n-dimensional-hyper-rectangle-data-structure">N-Dimensional Hyper-Rectangle Data Structure</a><ul>
+<li><a class="reference internal" href="#the-ndrect-class">The <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> class</a></li>
+<li><a class="reference internal" href="#sequencing-ndrect-into-complex-hyper-rectangles">Sequencing <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> into Complex Hyper-rectangles</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ndrect</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ndrect documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="ndrect-documentation">
+<h1>ndrect documentation<a class="headerlink" href="#ndrect-documentation" title="Link to this heading"></a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="n-dimensional-hyper-rectangle-data-structure">
+<h1>N-Dimensional Hyper-Rectangle Data Structure<a class="headerlink" href="#n-dimensional-hyper-rectangle-data-structure" title="Link to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">ndrect</span></code> is a library that provides a data structure to work with sequencing hyper-rectangles in an N-dimensional space.
+We provide some minimally useful tools and syntax to help with sequencing and some handy geometrical calculations.</p>
+<ul class="simple">
+<li><p><strong>Hyper-rectangle (N-Dim Rectangle)</strong> is a mathematical term for any rectangular geometry that exists in N dimensions
+where N &gt;= 1. All of their edges must lie parallel to the global orthogonal axes.</p></li>
+<li><p><strong>Sequencing</strong> in this case implies placing these Hyper-rectangles flush with each other. For example, in 2D, “flush”
+hyper-rectangles would have one of their sides intersect each other; in 3D, “flush” hyper-rectangles would have a face
+intersect with another’s face.</p></li>
+</ul>
+<section id="the-ndrect-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> class<a class="headerlink" href="#the-ndrect-class" title="Link to this heading"></a></h2>
+<p>An <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> is a representation of an atomic hyper-rectangle. Its constructor takes in a mapping of
+<code class="docutils literal notranslate"><span class="pre">{&lt;DimensionName&gt;:</span> <span class="pre">&lt;DimensionLength&gt;}</span></code> to define its shape.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ndrect</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDRect</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">NDRect</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Notice that because the shape is defined as a mapping (dictionary), this is because we do not restrict <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> to fall
+in sequential integer dimensions. That is, you can define <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> like so too:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ndrect</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDRect</span>
+
+<span class="c1"># Dimension 0: Length 1</span>
+<span class="c1"># Dimension 2: Length 4</span>
+<span class="n">NDRect</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+
+<span class="c1"># Dimension A: Length 1</span>
+<span class="c1"># Dimension B: Length 4</span>
+<span class="n">NDRect</span><span class="p">({</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+</pre></div>
+</div>
+</section>
+<section id="sequencing-ndrect-into-complex-hyper-rectangles">
+<h2>Sequencing <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> into Complex Hyper-rectangles<a class="headerlink" href="#sequencing-ndrect-into-complex-hyper-rectangles" title="Link to this heading"></a></h2>
+<p>Up to now, this is no more than just a dictionary, its power comes when we sequence them together.</p>
+<p>When sequenced with one another, will form a Unaligned Complex Hyper-rectangle. This Unaligned Complex Hyper-rectangle
+must be aligned along a single axis to resolve into a Complex Hyper-rectangle</p>
+<ul class="simple">
+<li><p><strong>Complex</strong> in this case, implies multiple <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> as a sequence</p></li>
+<li><p><strong>Alignment</strong> implies a certain axis that the sequence of <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> objects are aligned along.</p></li>
+<li><p><strong>Unaligned</strong> would mean there’s no axis that the sequence of <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> objects are aligned along.</p></li>
+</ul>
+<p>For example, given two <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> rectangles:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>R1  R2
+┌─┐ ┌───┐    
+│ │ │   │    
+└─┘ └───┘    
+</pre></div>
+</div>
+<p>We can sequence them in 2 different axes</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>R1 + R2 Along Axis 0 (Horizontal)
+┌─┬───┐   
+│ │   │   
+└─┴───┘   
+
+R1 + R2 Along Axis 1 (Vertical)
+┌───┐   
+│   │   
+├─┬─┘   
+│ │     
+└─┘       
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">NDRect</span></code>, we code it like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ndrect</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDRect</span>
+
+<span class="n">r1</span> <span class="o">=</span> <span class="n">NDRect</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">NDRect</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+
+<span class="k">assert</span> <span class="n">r1</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span><span class="o">.</span><span class="n">along</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="k">assert</span> <span class="n">r1</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span><span class="o">.</span><span class="n">along</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Notice that when we sequence them along axis 1, its shape is the shape of minimal bounding rectangle that contains both <code class="docutils literal notranslate"><span class="pre">R1</span></code> and <code class="docutils literal notranslate"><span class="pre">R2</span></code>.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<p>12321</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Evening.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
