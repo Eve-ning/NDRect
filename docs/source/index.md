@@ -1,5 +1,3 @@
-# ndrect documentation
-
 ```{include} ../../README.md
 ```
 
