@@ -20,7 +20,7 @@ jobs:
           uv python pin 3.14
       - name: Install dependencies for docs
         run: |
-          uv sync --group docs
+          uv sync --group docs --no-editable
       - name: Build HTML
         run: |
           uv run sphinx-build docs/source docs/build/html
@@ -33,7 +33,6 @@ jobs:
         run: echo > docs/build/html/.nojekyll
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/build/html
