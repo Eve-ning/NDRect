@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ndrect documentation &mdash; ndrect 0.1.0 documentation</title>
+  <title>N-Dimensional Hyper-Rectangle Data Structure &mdash; ndrect 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -18,7 +18,8 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NDRect API" href="api/ndrect.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,18 +41,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">ndrect documentation</a></li>
-<li><a class="reference internal" href="#n-dimensional-hyper-rectangle-data-structure">N-Dimensional Hyper-Rectangle Data Structure</a><ul>
-<li><a class="reference internal" href="#the-ndrect-class">The <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> class</a></li>
-<li><a class="reference internal" href="#sequencing-ndrect-into-complex-hyper-rectangles">Sequencing <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> into Complex Hyper-rectangles</a><ul>
+              <p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/ndrect.html">NDRect API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ndrectcomplex.html">NDRectComplex API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ndrectcomplexunaligned.html">NDRectComplexUnaligned API</a></li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -66,7 +62,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">ndrect documentation</li>
+      <li class="breadcrumb-item active">N-Dimensional Hyper-Rectangle Data Structure</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -76,10 +72,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="ndrect-documentation">
-<h1>ndrect documentation<a class="headerlink" href="#ndrect-documentation" title="Link to this heading"></a></h1>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="n-dimensional-hyper-rectangle-data-structure">
+  <section class="tex2jax_ignore mathjax_ignore" id="n-dimensional-hyper-rectangle-data-structure">
 <h1>N-Dimensional Hyper-Rectangle Data Structure<a class="headerlink" href="#n-dimensional-hyper-rectangle-data-structure" title="Link to this heading"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">ndrect</span></code> is a library that provides a data structure to work with sequencing hyper-rectangles in an N-dimensional space.
 We provide some minimally useful tools and syntax to help with sequencing and some handy geometrical calculations.</p>
@@ -157,8 +150,12 @@ R1 + R2 Along Axis 1 (Vertical)
 </div>
 <p>Notice that when we sequence them along axis 1, its shape is the shape of minimal bounding rectangle that contains both <code class="docutils literal notranslate"><span class="pre">R1</span></code> and <code class="docutils literal notranslate"><span class="pre">R2</span></code>.</p>
 <div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/ndrect.html">NDRect API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ndrectcomplex.html">NDRectComplex API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/ndrectcomplexunaligned.html">NDRectComplexUnaligned API</a></li>
+</ul>
 </div>
 </section>
 </section>
@@ -166,7 +163,9 @@ R1 + R2 Along Axis 1 (Vertical)
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api/ndrect.html" class="btn btn-neutral float-right" title="NDRect API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
