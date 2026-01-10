@@ -1,2 +1,5 @@
 .venv
 .idea
+
+# Ignore Sphinx build documentation path
+docs/build
