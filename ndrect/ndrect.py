@@ -157,6 +157,14 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
     rects: Sequence[NDRect | NDRectComplex] = field(converter=tuple)
 
     def along(self, align_dim: DimensionName) -> NDRectComplex:
+        """Aligns the complex rectangle along the specified dimension,
+        creating a NDRectComplex.
+
+        Args:
+            align_dim: The dimension name along which to align the rectangles.
+
+        Returns: A new NDRectComplex aligned along the specified dimension.
+        """
         return NDRectComplex(rects=self, align_dim=align_dim)
 
     def __repr__(self) -> str:
@@ -172,6 +180,14 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
         yield from self.rects
 
     def __matmul__(self, align_dim: int) -> NDRectComplex:
+        """Shorthand for :meth:`along`, aligning the complex rectangle
+        along the specified dimension.
+
+        Args:
+            align_dim: The dimension name along which to align the rectangles.
+
+        Returns: A new NDRectComplex aligned along the specified dimension.
+        """
         return self.along(align_dim=align_dim)
 
 
