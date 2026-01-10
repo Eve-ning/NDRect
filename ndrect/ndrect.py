@@ -14,12 +14,22 @@ DimensionLength: TypeAlias = Real
 
 
 class IsAligned(ABC):
+    """An interface for N-dimensional rectangles that have a defined shape."""
     @property
     @abstractmethod
-    def shape(self) -> MappingProxyType[DimensionName, DimensionLength]: ...
+    def shape(self) -> MappingProxyType[DimensionName, DimensionLength]:
+        """Mapping of dimension names to their lengths.
+
+        Returns: An immutable mapping of dimension names to lengths.
+        """
+        ...
 
     @property
     def ndim(self) -> int:
+        """Number of unique dimensions.
+
+        Returns: The number of unique dimensions in the shape.
+        """
         return len(self.shape)
 
     def fill_into(
@@ -27,6 +37,15 @@ class IsAligned(ABC):
         bounding: Mapping[DimensionName, DimensionLength],
         fill_order: Sequence[DimensionName] = None,
     ) -> NDRectComplex:
+        """Fills the current rectangle until it matches the bounding shape.
+
+        Args:
+            bounding: The target bounding shape to fill into.
+            fill_order: The order in which to fill dimensions.
+                If None, uses the order of the current shape's keys.
+
+        Returns: A new NDRectComplex representing the filled rectangle.
+        """
         filled = self
         fill_order = fill_order or self.shape.keys()
         prv_shape = []
@@ -47,7 +66,19 @@ class IsAligned(ABC):
 
 
 class IsSequenceable(ABC):
+    """An interface for N-dimensional rectangles that can be sequenced."""
     def then(self, other: IsAligned) -> NDRectComplexUnaligned:
+        """Sequences the other rectangle after this one.
+
+        Notes:
+            The returned object is a NDRectComplexUnaligned, which can be
+            aligned later through .along().
+
+        Args:
+            other: Another rectangle to sequence after this one.
+
+        Returns: A new NDRectComplexUnaligned representing the sequence.
+        """
         if isinstance(self, (NDRectComplex, NDRect)):
             if isinstance(other, (NDRectComplex, NDRect)):
                 return NDRectComplexUnaligned(rects=[self, other])
@@ -63,6 +94,15 @@ class IsSequenceable(ABC):
         )
 
     def repeat(self, n: int = 2) -> NDRectComplexUnaligned:
+        """Repeats the current rectangle n times in sequence.
+
+        Args:
+            n: Number of times to repeat. n=1 returns the same rectangle,
+                n=2 returns two in sequence, etc.
+
+        Returns: A new NDRectComplexUnaligned representing the repeated
+            sequence.
+        """
         if isinstance(self, (NDRectComplex, NDRect)):
             return NDRectComplexUnaligned(rects=[self] * n)
         elif isinstance(self, NDRectComplexUnaligned):
@@ -70,14 +110,33 @@ class IsSequenceable(ABC):
         raise TypeError(f"Unsupported type for repeat(): {type(self)}")
 
     def __mul__(self, n: int) -> NDRectComplexUnaligned:
+        """Shorthand for :meth:`repeat`, repeating the current rectangle
+        n times.
+
+        Args:
+            n: Number of times to repeat.
+
+        Returns: A new NDRectComplexUnaligned representing the repeated
+            sequence.
+        """
         return self.repeat(n)
 
     def __add__(self, other: IsAligned) -> NDRectComplexUnaligned:
+        """Shorthand for :meth:`then`, sequencing the other rectangle after
+        this one.
+
+        Args:
+            other: Another rectangle to sequence after this one.
+
+        Returns: A new NDRectComplexUnaligned representing the sequence.
+        """
         return self.then(other)
 
 
 @define(repr=False)
 class NDRect(IsSequenceable, IsAligned):
+    """An N-dimensional rectangle defined by its shape."""
+
     shape: Mapping[DimensionName, DimensionLength] = field(
         converter=lambda _: MappingProxyType(deepcopy(_))
     )
@@ -86,13 +145,27 @@ class NDRect(IsSequenceable, IsAligned):
         return f"/{str(self.shape)[1:-1]}/"
 
     def __hash__(self) -> int:
+        # To make NDRect hashable, we hash its shape by expanding the mapping
+        # into a sorted tuple of items.
         return hash(tuple(sorted(self.shape.items())))
+
 
 @define(repr=False, frozen=True)
 class NDRectComplexUnaligned(IsSequenceable, Sequence):
+    """A complex N-dimensional rectangle made up of multiple rectangles
+    in sequence, without a defined alignment dimension."""
+
     rects: Sequence[NDRect | NDRectComplex] = field(converter=tuple)
 
     def along(self, align_dim: DimensionName) -> NDRectComplex:
+        """Aligns the complex rectangle along the specified dimension,
+        creating a NDRectComplex.
+
+        Args:
+            align_dim: The dimension name along which to align the rectangles.
+
+        Returns: A new NDRectComplex aligned along the specified dimension.
+        """
         return NDRectComplex(rects=self, align_dim=align_dim)
 
     def __repr__(self) -> str:
@@ -108,14 +181,25 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
         yield from self.rects
 
     def __matmul__(self, align_dim: int) -> NDRectComplex:
+        """Shorthand for :meth:`along`, aligning the complex rectangle
+        along the specified dimension.
+
+        Args:
+            align_dim: The dimension name along which to align the rectangles.
+
+        Returns: A new NDRectComplex aligned along the specified dimension.
+        """
         return self.along(align_dim=align_dim)
 
 
 @define(repr=False, frozen=True)
 class NDRectComplex(NDRectComplexUnaligned, IsAligned):
+    """A complex N-dimensional rectangle made up of multiple rectangles
+    in sequence, aligned along a specified dimension."""
     align_dim: DimensionName
 
     def __attrs_post_init__(self) -> None:
+        # Validate that all rectangles contain the alignment dimension
         if not all([self.align_dim in r.shape for r in self.rects]):
             raise ValueError(
                 f"Cannot construct {self.__class__.__name__} "
