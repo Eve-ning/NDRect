@@ -29,6 +29,8 @@ jobs:
         with:
           name: html-docs
           path: docs/build/html/
+      - name: Create .nojekyll
+        run: echo > docs/build/html/.nojekyll
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/docs'
