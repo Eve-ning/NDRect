@@ -17,7 +17,7 @@ release = "0.1.0"
 extensions = [
     "sphinx_rtd_theme",
     "myst_parser",
-    'sphinx.ext.autodoc',
+    "sphinx.ext.autodoc",
 ]
 myst_enable_extensions = ["dollarmath"]
 
