@@ -1,96 +1,93 @@
 # N-Dimensional Hyper-Rectangle Data Structure
 
-This library provides a simple class `NDRect` to do some simple shape calculations
+`ndrect` is a library that provides a data structure to work with sequencing hyper-rectangles in an N-dimensional space.
+We provide some minimally useful tools and syntax to help with sequencing and some handy geometrical calculations.
 
-An N-Dimensional Rectangle (or Hyper-Rectangle) is a generalization of a rectangle to N dimensions. In 2D, it's a rectangle; in 3D, it's a rectangular prism (or cuboid); and in higher dimensions, it's referred to as a hyper-rectangle.
+- **Hyper-rectangle (N-Dim Rectangle)** is a mathematical term for any rectangular geometry that exists in N dimensions
+  where N >= 1. All of their edges must lie parallel to the global orthogonal axes.
+- **Sequencing** in this case implies placing these Hyper-rectangles flush with each other. For example, in 2D, "flush"
+  hyper-rectangles would have one of their sides intersect each other; in 3D, "flush" hyper-rectangles would have a face
+  intersect with another's face.
 
-This library focuses on this simple subset of shapes, and provides some basic operations to manipulate them.
+## The `NDRect` class
 
-## Quick Example
+An `NDRect` is a representation of an atomic hyper-rectangle. Its constructor takes in a mapping of
+`{<DimensionName>: <DimensionLength>}` to define its shape.
 
-Given a rectangle in a 2D space that has lengths:
-- 1 unit on axis 0
-- 2 units on axis 1
-
-In short, a $1\times2$ rectangle. 
-
-You can define it like so:
 ```python
 from ndrect import NDRect
 
-rect = NDRect({0: 1, 1: 2})
+r = NDRect({0: 1, 1: 2})
+assert r.shape == {0: 1, 1: 2}
 ```
 
-Then, if we want to make it a square, we can add another $1\times2$ rectangle, or we can just repeat it
+Notice that because the shape is defined as a mapping (dictionary), this is because we do not restrict `NDRect` to fall
+in sequential integer dimensions. That is, you can define `NDRect` like so too:
 
 ```python
 from ndrect import NDRect
 
-rect = NDRect({0: 1, 1: 2})
-rect + rect
-# Equivalent
-rect.then(rect)
-rect.repeat(2)
+# Dimension 0: Length 1
+# Dimension 2: Length 4
+NDRect({0: 1, 2: 4})
+
+# Dimension A: Length 1
+# Dimension B: Length 4
+NDRect({"A": 1, "B": 4})
 ```
 
-Notice that if you do this, it doesn't actually have defined dimensions, as we also need to define the axis were we want to repeat it on.
+## Sequencing `NDRect` into Complex Hyper-rectangles
 
-```python
-from ndrect import NDRect
+Up to now, this is no more than just a dictionary, its power comes when we sequence them together.
 
-rect = NDRect({0: 1, 1: 2})
-assert (rect + rect) @ 0 == {0: 2, 1: 2}
-# Equivalent
-assert rect.then(rect).along(0).dims == {0: 2, 1: 2}
-assert rect.repeat(2).along(0).dims == {0: 2, 1: 2}
+When sequenced with one another, will form a Unaligned Complex Hyper-rectangle. This Unaligned Complex Hyper-rectangle
+must be aligned along a single axis to resolve into a Complex Hyper-rectangle
+
+- **Complex** in this case, implies multiple `NDRect` as a sequence
+- **Alignment** implies a certain axis that the sequence of `NDRect` objects are aligned along.
+- **Unaligned** would mean there's no axis that the sequence of `NDRect` objects are aligned along.
+
+For example, given two `NDRect` rectangles:
+
+```  
+R1  R2
+┌─┐ ┌───┐    
+│ │ │   │    
+└─┘ └───┘    
 ```
 
-## Syntax
+We can sequence them in 2 different axes
 
-As shown above, there's some interesting quirks about `NDRect`
+```
+R1 + R2 Along Axis 0 (Horizontal)
+┌─┬───┐   
+│ │   │   
+└─┴───┘   
 
-### Arbitrarily Named Dimensions
-
-Dimensions are defined using a `Mapping[DimensionName, DimensionLength]`, where `DimensionName: Any`, `DimensionLength: Number`. This means that dimension names don't necessarily need to be [0, 1, 2, ...]. `NDRect`'s dimensions can be anything that's hashable; for each unique dimension (unique hash), we treat it as an orthogonal axis. So for example:
-
-```python
-from ndrect import NDRect
-
-NDRect({"a": 1, "b": 2})
+R1 + R2 Along Axis 1 (Vertical)
+┌───┐   
+│   │   
+├─┬─┘   
+│ │     
+└─┘       
 ```
 
-is also a valid `NDRect`.
-
-### NDRect Complex Objects
-
-"Complex" is a term coined to represent multiple geometrical objects bundled together. In this case, it's simply multiple `NDRect` objects glued together by some face w.r.t. a predefined axis.
-
-When you join multiple `NDRect` objects together, its class type is elevated to a `NDRectComplex` or `NDRectComplexUnaligned`. These objects still act similar to an `NDRect`, however shouldn't be manually constructed (though I can't stop you).
-
-### Unaligned NDRectComplex Objects
-
-As you elevate an `NDRect`, it should change into a `NDRectComplexUnaligned`. This intermediary class is a temporary class that doesn't have an axis of alignment specified. For example, given $(1\times2) + (1\times2)$, it can result in either $(1\times4)$ or $(2\times2)$ dependent on the axis of joining. Thus this intermediate form doesn't have a defined dimension.
-
-In order to specify the alignment axis, you can use `along` or `@`.
-
-For example
+In `NDRect`, we code it like so:
 
 ```python
 from ndrect import NDRect
 
-rect = NDRect({0: 1, 1: 2})
-rect_complex_unaligned = rect + rect
-rect_complex = rect_complex_unaligned @ 0
-assert rect_complex.dims == {0: 2, 1: 2}
+r1 = NDRect({0: 1, 1: 2})
+r2 = NDRect({0: 2, 1: 2})
+
+assert r1.then(r2).along(0).shape == {0: 3, 1: 2}
+assert r1.then(r2).along(1).shape == {0: 2, 1: 4}
 ```
 
-### Operators
+Notice that when we sequence them along axis 1, its shape is the shape of minimal bounding rectangle that contains both `R1` and `R2`.
 
-For `NDRect`, we can use the `+`, `*`, `@` operators to represent `.then`, `.repeat`, `.along` shorthands respectively.
-
-```python
-from ndrect import NDRect
-
-rect = NDRect({0: 1, 1: 2})
+```{toctree}
+:maxdepth: 2
+:caption: Contents:
 ```
 
