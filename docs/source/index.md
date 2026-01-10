@@ -1,10 +1,12 @@
-# ndrect documentation
-
 ```{include} ../../README.md
 ```
 
+
 ```{toctree}
-:maxdepth: 2
-:caption: Contents:
+:maxdepth: 1
+:caption: API
+:glob:
+
+api/*
 ```
- 
+  

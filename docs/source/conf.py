@@ -17,6 +17,9 @@ release = "0.1.0"
 extensions = [
     "sphinx_rtd_theme",
     "myst_parser",
+    "sphinx.ext.autodoc",
+    # Add support for Google-style docstrings
+    "sphinx.ext.napoleon",
 ]
 myst_enable_extensions = ["dollarmath"]
 

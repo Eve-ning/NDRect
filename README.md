@@ -85,9 +85,3 @@ assert r1.then(r2).along(1).shape == {0: 2, 1: 4}
 ```
 
 Notice that when we sequence them along axis 1, its shape is the shape of minimal bounding rectangle that contains both `R1` and `R2`.
-
-```{toctree}
-:maxdepth: 2
-:caption: Contents:
-```
-
