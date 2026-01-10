@@ -21,7 +21,8 @@ class IsAligned(ABC):
     def shape(self) -> MappingProxyType[DimensionName, DimensionLength]:
         """Mapping of dimension names to their lengths.
 
-        Returns: An immutable mapping of dimension names to lengths.
+        Returns:
+            An immutable mapping of dimension names to lengths.
         """
         ...
 
@@ -29,7 +30,8 @@ class IsAligned(ABC):
     def ndim(self) -> int:
         """Number of unique dimensions.
 
-        Returns: The number of unique dimensions in the shape.
+        Returns:
+            The number of unique dimensions in the shape.
         """
         return len(self.shape)
 
@@ -45,7 +47,8 @@ class IsAligned(ABC):
             fill_order: The order in which to fill dimensions.
                 If None, uses the order of the current shape's keys.
 
-        Returns: A new NDRectComplex representing the filled rectangle.
+        Returns:
+            A new :class:`NDRectComplex` representing the filled rectangle.
         """
         filled = self
         fill_order = fill_order or self.shape.keys()
@@ -74,12 +77,13 @@ class IsSequenceable(ABC):
 
         Notes:
             The returned object is a NDRectComplexUnaligned, which can be
-            aligned later through .along().
+            aligned later through :meth:`along`.
 
         Args:
             other: Another rectangle to sequence after this one.
 
-        Returns: A new NDRectComplexUnaligned representing the sequence.
+        Returns:
+            A new :class:`NDRectComplexUnaligned` representing the sequence.
         """
         if isinstance(self, (NDRectComplex, NDRect)):
             if isinstance(other, (NDRectComplex, NDRect)):
@@ -102,7 +106,8 @@ class IsSequenceable(ABC):
             n: Number of times to repeat. n=1 returns the same rectangle,
                 n=2 returns two in sequence, etc.
 
-        Returns: A new NDRectComplexUnaligned representing the repeated
+        Returns:
+            A new :class:`NDRectComplexUnaligned` representing the repeated
             sequence.
         """
         if isinstance(self, (NDRectComplex, NDRect)):
@@ -118,7 +123,8 @@ class IsSequenceable(ABC):
         Args:
             n: Number of times to repeat.
 
-        Returns: A new NDRectComplexUnaligned representing the repeated
+        Returns:
+            A new :class:`NDRectComplexUnaligned` representing the repeated
             sequence.
         """
         return self.repeat(n)
@@ -130,7 +136,8 @@ class IsSequenceable(ABC):
         Args:
             other: Another rectangle to sequence after this one.
 
-        Returns: A new NDRectComplexUnaligned representing the sequence.
+        Returns:
+            A new :class:`NDRectComplexUnaligned` representing the sequence.
         """
         return self.then(other)
 
@@ -166,7 +173,8 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
         Args:
             align_dim: The dimension name along which to align the rectangles.
 
-        Returns: A new NDRectComplex aligned along the specified dimension.
+        Returns:
+            A new :class:`NDRectComplex` aligned along the specified dimension.
         """
         return NDRectComplex(rects=self, align_dim=align_dim)
 
@@ -189,7 +197,8 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
         Args:
             align_dim: The dimension name along which to align the rectangles.
 
-        Returns: A new NDRectComplex aligned along the specified dimension.
+        Returns:
+            A new :class:`NDRectComplex` aligned along the specified dimension.
         """
         return self.along(align_dim=align_dim)
 
