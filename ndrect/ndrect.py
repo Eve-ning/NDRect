@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from collections import defaultdict
+from copy import deepcopy
 from numbers import Real
+from types import MappingProxyType
 from typing import Sequence, Iterator, Mapping, Any, TypeAlias
 
-from attrs import define
+from attrs import define, field
 
 DimensionName: TypeAlias = Any
 DimensionLength: TypeAlias = Real
@@ -14,7 +16,7 @@ DimensionLength: TypeAlias = Real
 class IsAligned(ABC):
     @property
     @abstractmethod
-    def shape(self) -> Mapping[DimensionName, DimensionLength]: ...
+    def shape(self) -> MappingProxyType[DimensionName, DimensionLength]: ...
 
     @property
     def ndim(self) -> int:
@@ -76,15 +78,19 @@ class IsSequenceable(ABC):
 
 @define(repr=False)
 class NDRect(IsSequenceable, IsAligned):
-    shape: Mapping[DimensionName, DimensionLength]
+    shape: Mapping[DimensionName, DimensionLength] = field(
+        converter=lambda _: MappingProxyType(deepcopy(_))
+    )
 
     def __repr__(self) -> str:
         return f"/{str(self.shape)[1:-1]}/"
 
+    def __hash__(self) -> int:
+        return hash(tuple(sorted(self.shape.items())))
 
-@define(repr=False)
+@define(repr=False, frozen=True)
 class NDRectComplexUnaligned(IsSequenceable, Sequence):
-    rects: Sequence[NDRect | NDRectComplex]
+    rects: Sequence[NDRect | NDRectComplex] = field(converter=tuple)
 
     def along(self, align_dim: DimensionName) -> NDRectComplex:
         return NDRectComplex(rects=self, align_dim=align_dim)
@@ -105,7 +111,7 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
         return self.along(align_dim=align_dim)
 
 
-@define(repr=False)
+@define(repr=False, frozen=True)
 class NDRectComplex(NDRectComplexUnaligned, IsAligned):
     align_dim: DimensionName
 
