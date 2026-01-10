@@ -17,8 +17,7 @@ jobs:
           pip install uv
       - name: Set up Python with `uv`
         run: |
-          uv install 3.14
-          uv use 3.14
+          uv python pin 3.14
       - name: Install dependencies for docs
         run: |
           uv sync -g docs
