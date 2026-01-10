@@ -110,7 +110,8 @@ class IsSequenceable(ABC):
         raise TypeError(f"Unsupported type for repeat(): {type(self)}")
 
     def __mul__(self, n: int) -> NDRectComplexUnaligned:
-        """Shorthand for .repeat(n), repeating the rectangle n times.
+        """Shorthand for :meth:`repeat`, repeating the current rectangle
+        n times.
 
         Args:
             n: Number of times to repeat.
@@ -121,7 +122,7 @@ class IsSequenceable(ABC):
         return self.repeat(n)
 
     def __add__(self, other: IsAligned) -> NDRectComplexUnaligned:
-        """Shorthand for .then(other), sequencing the other rectangle after
+        """Shorthand for :meth:`then`, sequencing the other rectangle after
         this one.
 
         Args:
