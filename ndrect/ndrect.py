@@ -15,6 +15,7 @@ DimensionLength: TypeAlias = Real
 
 class IsAligned(ABC):
     """An interface for N-dimensional rectangles that have a defined shape."""
+
     @property
     @abstractmethod
     def shape(self) -> MappingProxyType[DimensionName, DimensionLength]:
@@ -67,6 +68,7 @@ class IsAligned(ABC):
 
 class IsSequenceable(ABC):
     """An interface for N-dimensional rectangles that can be sequenced."""
+
     def then(self, other: IsAligned) -> NDRectComplexUnaligned:
         """Sequences the other rectangle after this one.
 
@@ -196,6 +198,7 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
 class NDRectComplex(NDRectComplexUnaligned, IsAligned):
     """A complex N-dimensional rectangle made up of multiple rectangles
     in sequence, aligned along a specified dimension."""
+
     align_dim: DimensionName
 
     def __attrs_post_init__(self) -> None:
