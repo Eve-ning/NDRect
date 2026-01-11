@@ -94,13 +94,12 @@
 <dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplex">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndrect.ndrect.</span></span><span class="sig-name descname"><span class="pre">NDRectComplex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">align_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndrect.ndrect.NDRectComplex" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="ndrectcomplexunaligned.html#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplexUnaligned</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">IsAligned</span></code></p>
-<p>A complex N-dimensional rectangle made up of multiple rectangles
-in sequence, aligned along a specified dimension.</p>
+<p>Aligned complex n-dim rectangle of multiple rectangles in sequence.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplex.__add__">
 <span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">IsAligned</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ndrectcomplexunaligned.html#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><span class="pre">NDRectComplexUnaligned</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplex.__add__" title="Link to this definition"></a></dt>
-<dd><p>Shorthand for <a class="reference internal" href="#ndrect.ndrect.NDRectComplex.then" title="ndrect.ndrect.NDRectComplex.then"><code class="xref py py-meth docutils literal notranslate"><span class="pre">then()</span></code></a>, sequencing the other rectangle after
-this one.</p>
+<dd><p>Shorthand for <a class="reference internal" href="#ndrect.ndrect.NDRectComplex.then" title="ndrect.ndrect.NDRectComplex.then"><code class="xref py py-meth docutils literal notranslate"><span class="pre">then()</span></code></a>.</p>
+<p>Sequences the other rectangle after this one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – Another rectangle to sequence after this one.</p>
@@ -114,8 +113,8 @@ this one.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplex.__mul__">
 <span class="sig-name descname"><span class="pre">__mul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ndrectcomplexunaligned.html#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><span class="pre">NDRectComplexUnaligned</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplex.__mul__" title="Link to this definition"></a></dt>
-<dd><p>Shorthand for <a class="reference internal" href="#ndrect.ndrect.NDRectComplex.repeat" title="ndrect.ndrect.NDRectComplex.repeat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">repeat()</span></code></a>, repeating the current rectangle
-n times.</p>
+<dd><p>Shorthand for <a class="reference internal" href="#ndrect.ndrect.NDRectComplex.repeat" title="ndrect.ndrect.NDRectComplex.repeat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">repeat()</span></code></a>.</p>
+<p>Repeats the current rectangle n times.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>n</strong> – Number of times to repeat.</p>
@@ -130,8 +129,7 @@ sequence.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplex.along">
 <span class="sig-name descname"><span class="pre">along</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">align_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ndrect.ndrect.NDRectComplex" title="ndrect.ndrect.NDRectComplex"><span class="pre">NDRectComplex</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplex.along" title="Link to this definition"></a></dt>
-<dd><p>Aligns the complex rectangle along the specified dimension,
-creating a NDRectComplex.</p>
+<dd><p>Aligns this along a dimension to create a NDRectComplex.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>align_dim</strong> – The dimension name along which to align the rectangles.</p>
@@ -149,8 +147,8 @@ creating a NDRectComplex.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplex.fill_into">
-<span class="sig-name descname"><span class="pre">fill_into</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bounding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Real</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ndrect.ndrect.NDRectComplex" title="ndrect.ndrect.NDRectComplex"><span class="pre">NDRectComplex</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplex.fill_into" title="Link to this definition"></a></dt>
-<dd><p>Fills the current rectangle until it matches the bounding shape.</p>
+<span class="sig-name descname"><span class="pre">fill_into</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bounding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Real</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ndrect.ndrect.NDRectComplex" title="ndrect.ndrect.NDRectComplex"><span class="pre">NDRectComplex</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplex.fill_into" title="Link to this definition"></a></dt>
+<dd><p>Fill the current rectangle until it matches the bounding shape.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
