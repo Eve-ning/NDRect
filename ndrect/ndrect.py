@@ -230,7 +230,7 @@ class NDRectComplex(NDRectComplexUnaligned, IsAligned):
 
     align_dim: DimensionName
 
-    def __attrs_post_init__(self) -> None:
+    def __attrs_post_init__(self) -> None:  # noqa: D105
         # Validate that all rectangles contain the alignment dimension
         if not all(self.align_dim in r.shape for r in self.rects):
             msg = (
