@@ -10,7 +10,7 @@ dependencies = [
 [tool.ruff]
 line-length = 79
 exclude = [
-    "docs/conf.py",
+    "docs/source/conf.py",
 ]
 
 [tool.ruff.lint]
