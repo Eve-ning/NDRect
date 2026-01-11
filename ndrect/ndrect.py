@@ -6,12 +6,12 @@ from collections.abc import Iterator, Mapping, Sequence
 from copy import deepcopy
 from numbers import Real
 from types import MappingProxyType
-from typing import Any, TypeAlias
+from typing import Any
 
 from attrs import define, field
 
-DimensionName: TypeAlias = Any
-DimensionLength: TypeAlias = Real
+DimensionName: type = Any
+DimensionLength: type = Real
 
 
 class IsAligned(ABC):
