@@ -9,6 +9,31 @@ dependencies = [
 
 [tool.ruff]
 line-length = 79
+exclude = [
+    "docs/source/conf.py",
+]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    # pydocstyle
+    "D",
+    # flake8-annotations
+    "ANN",
+    # tryceratops
+    "TRY",
+]
 
 [dependency-groups]
 docs = [
