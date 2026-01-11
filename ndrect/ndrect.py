@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from collections import defaultdict
+from collections.abc import Iterator, Mapping, Sequence
 from copy import deepcopy
 from numbers import Real
 from types import MappingProxyType
-from typing import Sequence, Iterator, Mapping, Any, TypeAlias
+from typing import Any, TypeAlias
 
 from attrs import define, field
 
