@@ -70,7 +70,7 @@ class IsAligned(ABC):
         return filled
 
 
-class IsSequenceable(ABC):
+class IsSequenceable:
     """An interface for N-dimensional rectangles that can be sequenced."""
 
     def then(self, other: IsAligned) -> NDRectComplexUnaligned:
