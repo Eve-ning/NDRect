@@ -9,6 +9,9 @@ dependencies = [
 
 [tool.ruff]
 line-length = 79
+exclude = [
+    "docs/conf.py",
+]
 
 [tool.ruff.lint]
 select = [
