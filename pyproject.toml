@@ -42,12 +42,3 @@ docs = [
     "sphinx-autobuild>=2025.8.25",
     "sphinx-rtd-theme>=3.0.2",
 ]
-
-
-
-
-
-
-
-
-
