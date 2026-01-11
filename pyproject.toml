@@ -27,6 +27,12 @@ select = [
     "SIM",
     # isort
     "I",
+    # pydocstyle
+    "D",
+    # flake8-annotations
+    "ANN",
+    # tryceratops
+    "TRY",
 ]
 
 [dependency-groups]
