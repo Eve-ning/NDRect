@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 from ndrect._is_aligned import IsAligned
 
 if TYPE_CHECKING:
-    from ndrect.ndrect import NDRectComplexUnaligned
+    from ndrect.ndrect_complex_unaligned import NDRectComplexUnaligned
 
 
 class IsSequenceable:
@@ -27,7 +27,9 @@ class IsSequenceable:
             A new :class:`NDRectComplexUnaligned` representing the sequence.
 
         """
-        from ndrect.ndrect import NDRect, NDRectComplex, NDRectComplexUnaligned
+        from ndrect.ndrect import NDRect
+        from ndrect.ndrect_complex import NDRectComplex
+        from ndrect.ndrect_complex_unaligned import NDRectComplexUnaligned
 
         if isinstance(self, (NDRectComplex, NDRect)):
             if isinstance(other, (NDRectComplex, NDRect)):
@@ -56,7 +58,9 @@ class IsSequenceable:
             sequence.
 
         """
-        from ndrect.ndrect import NDRect, NDRectComplex, NDRectComplexUnaligned
+        from ndrect.ndrect import NDRect
+        from ndrect.ndrect_complex import NDRectComplex
+        from ndrect.ndrect_complex_unaligned import NDRectComplexUnaligned
 
         if isinstance(self, (NDRectComplex, NDRect)):
             return NDRectComplexUnaligned(rects=[self] * n)

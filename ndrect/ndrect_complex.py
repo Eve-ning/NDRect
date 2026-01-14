@@ -9,7 +9,7 @@ from attrs import define
 
 from ndrect._is_aligned import IsAligned
 from ndrect._typing import DimensionLength, DimensionName
-from ndrect.ndrect import NDRectComplexUnaligned
+from ndrect.ndrect_complex_unaligned import NDRectComplexUnaligned
 
 
 @define(repr=False, frozen=True)

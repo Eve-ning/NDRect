@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 from ndrect._typing import DimensionLength, DimensionName
 
 if TYPE_CHECKING:
-    from ndrect.ndrect import NDRectComplex
+    from ndrect.ndrect_complex import NDRectComplex
 
 
 class IsAligned(ABC):
