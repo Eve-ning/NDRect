@@ -51,7 +51,7 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
     def __iter__(self) -> Iterator[NDRect | NDRectComplex]:
         yield from self.rects
 
-    def __matmul__(self, align_dim: int) -> NDRectComplex:
+    def __matmul__(self, align_dim: DimensionName) -> NDRectComplex:
         """Shorthand for :meth:`along`.
 
         Aligning the complex rectangle along the specified dimension.
