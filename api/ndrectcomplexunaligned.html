@@ -45,20 +45,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ndrect.html">NDRect API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ndrectcomplex.html">NDRectComplex API</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">NDRectComplexUnaligned API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.__add__"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned.__add__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.__matmul__"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned.__matmul__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.__mul__"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned.__mul__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.along"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned.along()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.count"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned.count()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.index"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned.index()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.repeat"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned.repeat()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.then"><code class="docutils literal notranslate"><span class="pre">NDRectComplexUnaligned.then()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NDRectComplexUnaligned API</a></li>
 </ul>
 
         </div>
@@ -87,119 +74,6 @@
              
   <section class="tex2jax_ignore mathjax_ignore" id="ndrectcomplexunaligned-api">
 <h1>NDRectComplexUnaligned API<a class="headerlink" href="#ndrectcomplexunaligned-api" title="Link to this heading"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndrect.ndrect.</span></span><span class="sig-name descname"><span class="pre">NDRectComplexUnaligned</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IsSequenceable</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></p>
-<p>Unaligned complex n-dim rectangle of multiple rectangles in sequence.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned.__add__">
-<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">IsAligned</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><span class="pre">NDRectComplexUnaligned</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned.__add__" title="Link to this definition"></a></dt>
-<dd><p>Shorthand for <a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.then" title="ndrect.ndrect.NDRectComplexUnaligned.then"><code class="xref py py-meth docutils literal notranslate"><span class="pre">then()</span></code></a>.</p>
-<p>Sequences the other rectangle after this one.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> – Another rectangle to sequence after this one.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplexUnaligned</span></code></a> representing the sequence.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned.__matmul__">
-<span class="sig-name descname"><span class="pre">__matmul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">align_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ndrectcomplex.html#ndrect.ndrect.NDRectComplex" title="ndrect.ndrect.NDRectComplex"><span class="pre">NDRectComplex</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned.__matmul__" title="Link to this definition"></a></dt>
-<dd><p>Shorthand for <a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.along" title="ndrect.ndrect.NDRectComplexUnaligned.along"><code class="xref py py-meth docutils literal notranslate"><span class="pre">along()</span></code></a>.</p>
-<p>Aligning the complex rectangle along the specified dimension.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>align_dim</strong> – The dimension name along which to align the rectangles.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference internal" href="ndrectcomplex.html#ndrect.ndrect.NDRectComplex" title="ndrect.ndrect.NDRectComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplex</span></code></a> aligned along the specified dimension.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned.__mul__">
-<span class="sig-name descname"><span class="pre">__mul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><span class="pre">NDRectComplexUnaligned</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned.__mul__" title="Link to this definition"></a></dt>
-<dd><p>Shorthand for <a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.repeat" title="ndrect.ndrect.NDRectComplexUnaligned.repeat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">repeat()</span></code></a>.</p>
-<p>Repeats the current rectangle n times.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>n</strong> – Number of times to repeat.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplexUnaligned</span></code></a> representing the repeated
-sequence.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned.along">
-<span class="sig-name descname"><span class="pre">along</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">align_dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="ndrectcomplex.html#ndrect.ndrect.NDRectComplex" title="ndrect.ndrect.NDRectComplex"><span class="pre">NDRectComplex</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned.along" title="Link to this definition"></a></dt>
-<dd><p>Aligns this along a dimension to create a NDRectComplex.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>align_dim</strong> – The dimension name along which to align the rectangles.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference internal" href="ndrectcomplex.html#ndrect.ndrect.NDRectComplex" title="ndrect.ndrect.NDRectComplex"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplex</span></code></a> aligned along the specified dimension.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">integer</span> <span class="pre">--</span> <span class="pre">return</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">occurrences</span> <span class="pre">of</span> <span class="pre">value</span></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned.count" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">integer</span> <span class="pre">--</span> <span class="pre">return</span> <span class="pre">first</span> <span class="pre">index</span> <span class="pre">of</span> <span class="pre">value.</span></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned.index" title="Link to this definition"></a></dt>
-<dd><p>Raises ValueError if the value is not present.</p>
-<p>Supporting start and stop arguments is optional, but
-recommended.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned.repeat">
-<span class="sig-name descname"><span class="pre">repeat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><span class="pre">NDRectComplexUnaligned</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned.repeat" title="Link to this definition"></a></dt>
-<dd><p>Repeats the current rectangle n times in sequence.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>n</strong> – Number of times to repeat. n=1 returns the same rectangle,
-n=2 returns two in sequence, etc.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplexUnaligned</span></code></a> representing the repeated
-sequence.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ndrect.ndrect.NDRectComplexUnaligned.then">
-<span class="sig-name descname"><span class="pre">then</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">IsAligned</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><span class="pre">NDRectComplexUnaligned</span></a></span></span><a class="headerlink" href="#ndrect.ndrect.NDRectComplexUnaligned.then" title="Link to this definition"></a></dt>
-<dd><p>Sequences the other rectangle after this one.</p>
-<p class="rubric">Notes</p>
-<p>The returned object is a NDRectComplexUnaligned, which can be
-aligned later through <a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned.along" title="ndrect.ndrect.NDRectComplexUnaligned.along"><code class="xref py py-meth docutils literal notranslate"><span class="pre">along()</span></code></a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> – Another rectangle to sequence after this one.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference internal" href="#ndrect.ndrect.NDRectComplexUnaligned" title="ndrect.ndrect.NDRectComplexUnaligned"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplexUnaligned</span></code></a> representing the sequence.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
 </section>
 
 
