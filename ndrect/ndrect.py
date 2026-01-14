@@ -6,14 +6,12 @@ from abc import ABC, abstractmethod
 from collections import defaultdict
 from collections.abc import Iterator, Mapping, Sequence
 from copy import deepcopy
-from numbers import Real
 from types import MappingProxyType
-from typing import Any, override
+from typing import override
 
 from attrs import define, field
 
-DimensionName: type = Any
-DimensionLength: type = Real
+from ndrect._typing import DimensionLength, DimensionName
 
 
 class IsAligned(ABC):
