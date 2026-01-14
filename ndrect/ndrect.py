@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
 from collections.abc import Iterator, Mapping, Sequence
 from copy import deepcopy
 from types import MappingProxyType
-from typing import override
+from typing import TYPE_CHECKING, override
 
 from attrs import define, field
 
 from ndrect._is_aligned import IsAligned
 from ndrect._is_sequenceable import IsSequenceable
 from ndrect._typing import DimensionLength, DimensionName
+
+if TYPE_CHECKING:
+    from ndrect.ndrect_complex import NDRectComplex
 
 
 @define(repr=False)
@@ -50,6 +52,8 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
             A new :class:`NDRectComplex` aligned along the specified dimension.
 
         """
+        from ndrect.ndrect_complex import NDRectComplex
+
         return NDRectComplex(rects=self, align_dim=align_dim)
 
     @override
@@ -81,43 +85,3 @@ class NDRectComplexUnaligned(IsSequenceable, Sequence):
 
         """
         return self.along(align_dim=align_dim)
-
-
-@define(repr=False, frozen=True)
-class NDRectComplex(NDRectComplexUnaligned, IsAligned):
-    """Aligned complex n-dim rectangle of multiple rectangles in sequence."""
-
-    align_dim: DimensionName
-
-    def __attrs_post_init__(self) -> None:  # noqa: D105
-        # Validate that all rectangles contain the alignment dimension
-        if not all(self.align_dim in r.shape for r in self.rects):
-            msg = (
-                f"Cannot construct {self.__class__.__name__} "
-                f"where Alignment Dimension {self.align_dim} doesn't "
-                "exist in all rectangles. "
-                "Found dimensions in rectangles: "
-                f"{set().union(*(r.shape.keys() for r in self.rects))}"
-            )
-            raise ValueError(msg)
-
-    @property
-    @override
-    def shape(self) -> dict[DimensionName, DimensionLength]:
-        shape = defaultdict(lambda: 0)
-        for rect in self.rects:
-            for name, size in rect.shape.items():
-                shape[name] = (
-                    shape[name] + size
-                    if name == self.align_dim
-                    else max(shape[name], size)
-                )
-        return dict(shape)
-
-    @override
-    def __repr__(self) -> str:
-        return (
-            "("
-            + "+".join(repr(e) for e in self.rects)
-            + f"@D{self.align_dim!s})"
-        )
