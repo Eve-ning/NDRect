@@ -67,9 +67,11 @@ class NDRectComplex(IsAligned):
             A new :class:`NDRectComplex` aligned along the specified dimension.
 
         """
-        return self._complex_type(
-            rects=[self._complex_type(rects=self.rects, align_dim=align_dim)]
-        )
+        return self._complex_type(rects=self.rects, align_dim=align_dim)
+
+    @property
+    def aligned(self) -> bool:
+        return not isinstance(self.align_dim, NoAlignment)
 
     @override
     def __repr__(self) -> str:
