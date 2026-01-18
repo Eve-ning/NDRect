@@ -28,7 +28,7 @@ class UnalignedError(Exception):
 
 
 @define(repr=False, frozen=True)
-class NDRectComplex(IsAligned):
+class NDRectComplex(IsAligned["NDRect", "NDRectComplex"]):
     """Aligned complex n-dim rectangle of multiple rectangles in sequence."""
 
     rects: Sequence[NDRect | NDRectComplex] = field(converter=tuple)
@@ -82,6 +82,18 @@ class NDRectComplex(IsAligned):
     @property
     def aligned(self) -> bool:
         return not isinstance(self.align_dim, NoAlignment)
+
+    @property
+    @override
+    def _singular_type(self) -> type[NDRect]:
+        from ndrect.ndrect import NDRect
+
+        return NDRect
+
+    @property
+    @override
+    def _complex_type(self) -> type[NDRectComplex]:
+        return NDRectComplex
 
     @override
     def __repr__(self) -> str:
