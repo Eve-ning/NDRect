@@ -118,7 +118,9 @@ class IsAligned(ABC):
             A new :class:`NDRectComplex` representing the repeated sequence.
 
         """
-        if isinstance(self, self._singular_type):
+        if isinstance(self, self._singular_type) or (
+            isinstance(self, self._complex_type) and self.aligned
+        ):
             return self._complex_type(rects=[self] * n)
         elif isinstance(self, self._complex_type):
             return self._complex_type(rects=self.rects * n)
