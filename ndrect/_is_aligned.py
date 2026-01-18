@@ -54,8 +54,6 @@ class IsAligned(ABC):
             A new :class:`NDRectComplex` representing the filled rectangle.
 
         """
-        from ndrect.ndrect import NDRect
-
         filled = self
         fill_order = fill_order or self.shape.keys()
         prv_shape = []
@@ -63,7 +61,7 @@ class IsAligned(ABC):
         for name in fill_order:
             prv_fill = {d: s for d, s in bounding.items() if d in prv_shape}
             nxt_fill = {d: s for d, s in self.shape.items() if d in nxt_shape}
-            filled += NDRect(
+            filled += self._singular_type(
                 {
                     **prv_fill,
                     **nxt_fill,
