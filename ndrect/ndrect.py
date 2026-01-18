@@ -10,12 +10,11 @@ from typing import override
 from attrs import define, field
 
 from ndrect._is_aligned import IsAligned
-from ndrect._is_sequenceable import IsSequenceable
 from ndrect._typing import DimensionLength, DimensionName
 
 
 @define(repr=False)
-class NDRect(IsSequenceable, IsAligned):
+class NDRect(IsAligned):
     """An n-dim rectangle defined by its shape."""
 
     shape: Mapping[DimensionName, DimensionLength] = field(
