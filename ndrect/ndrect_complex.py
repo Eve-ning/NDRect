@@ -83,6 +83,18 @@ class NDRectComplex(IsAligned):
     def aligned(self) -> bool:
         return not isinstance(self.align_dim, NoAlignment)
 
+    @property
+    @override
+    def _singular_type(self) -> type[NDRect]:
+        from ndrect.ndrect import NDRect
+
+        return NDRect
+
+    @property
+    @override
+    def _complex_type(self) -> type[NDRectComplex]:
+        return NDRectComplex
+
     @override
     def __repr__(self) -> str:
         return (

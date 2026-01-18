@@ -5,12 +5,15 @@ from __future__ import annotations
 from collections.abc import Mapping
 from copy import deepcopy
 from types import MappingProxyType
-from typing import override
+from typing import TYPE_CHECKING, override
 
 from attrs import define, field
 
 from ndrect._is_aligned import IsAligned
 from ndrect._typing import DimensionLength, DimensionName
+
+if TYPE_CHECKING:
+    from ndrect.ndrect_complex import NDRectComplex
 
 
 @define(repr=False)
@@ -20,6 +23,18 @@ class NDRect(IsAligned):
     shape: Mapping[DimensionName, DimensionLength] = field(
         converter=lambda _: MappingProxyType(deepcopy(_)),
     )
+
+    @property
+    @override
+    def _singular_type(self) -> type[NDRect]:
+        return NDRect
+
+    @property
+    @override
+    def _complex_type(self) -> type[NDRectComplex]:
+        from ndrect.ndrect_complex import NDRectComplex
+
+        return NDRectComplex
 
     @override
     def __repr__(self) -> str:

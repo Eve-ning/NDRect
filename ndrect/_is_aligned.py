@@ -128,16 +128,12 @@ class IsAligned(ABC):
             raise TypeError
 
     @property
-    def _singular_type(self) -> type[NDRect]:
-        from ndrect.ndrect import NDRect
-
-        return NDRect
+    @abstractmethod
+    def _singular_type(self) -> type[NDRect]: ...
 
     @property
-    def _complex_type(self) -> type[NDRectComplex]:
-        from ndrect.ndrect_complex import NDRectComplex
-
-        return NDRectComplex
+    @abstractmethod
+    def _complex_type(self) -> type[NDRectComplex]: ...
 
     def __mul__(self, n: int) -> NDRectComplex:
         """Shorthand for :meth:`repeat`.
