@@ -51,6 +51,12 @@ class NDRectComplex(IsAligned):
     @property
     @override
     def shape(self) -> dict[DimensionName, DimensionLength]:
+        if not self.aligned:
+            msg = (
+                "Cannot get shape of unaligned NDRectComplex. "
+                "Align it along a dimension using the `along` method."
+            )
+            raise UnalignedError(msg)
         shape = defaultdict(lambda: 0)
         for rect in self.rects:
             for name, size in rect.shape.items():
