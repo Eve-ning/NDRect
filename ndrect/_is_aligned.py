@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING
 from ndrect._typing import DimensionLength, DimensionName
 
 if TYPE_CHECKING:
+    from ndrect.ndrect import NDRect
     from ndrect.ndrect_complex import NDRectComplex
 
 
@@ -72,3 +73,90 @@ class IsAligned(ABC):
             filled @= name
             prv_shape.append(nxt_shape.pop(0))
         return filled
+
+    def then(self, other: IsAligned) -> NDRectComplex:
+        """Sequences the other rectangle after this one.
+
+        Args:
+            other: Another rectangle to sequence after this one.
+
+        Returns:
+            A new :class:`NDRectComplex` representing the sequence.
+
+        """
+        rects = []
+        if isinstance(self, self._singular_type):
+            rects.append(self)
+        elif isinstance(self, self._complex_type):
+            rects.extend(self.rects)
+        else:
+            raise TypeError()
+
+        if isinstance(other, self._singular_type):
+            rects.append(other)
+        elif isinstance(other, self._complex_type):
+            rects.extend(other.rects)
+        else:
+            raise TypeError()
+
+        from ndrect.ndrect_complex import NDRectComplex
+
+        return NDRectComplex(rects=rects)
+
+    def repeat(self, n: int = 2) -> NDRectComplex:
+        """Repeats the current rectangle n times in sequence.
+
+        Args:
+            n: Number of times to repeat. n=1 returns the same rectangle,
+                n=2 returns two in sequence, etc.
+
+        Returns:
+            A new :class:`NDRectComplex` representing the repeated sequence.
+
+        """
+        if isinstance(self, self._singular_type):
+            return self._complex_type(rects=[self] * n)
+        elif isinstance(self, self._complex_type):
+            return self._complex_type(rects=self.rects * n)
+        else:
+            raise TypeError
+
+    @property
+    def _singular_type(self) -> type[NDRect]:
+        from ndrect.ndrect import NDRect
+
+        return NDRect
+
+    @property
+    def _complex_type(self) -> type[NDRectComplex]:
+        from ndrect.ndrect_complex import NDRectComplex
+
+        return NDRectComplex
+
+    def __mul__(self, n: int) -> NDRectComplex:
+        """Shorthand for :meth:`repeat`.
+
+        Repeats the current rectangle n times.
+
+        Args:
+            n: Number of times to repeat.
+
+        Returns:
+            A new :class:`NDRectComplex` representing the repeated sequence.
+
+        """
+        return self.repeat(n)
+
+    def __add__(self, other: IsAligned) -> NDRectComplex:
+        """Shorthand for :meth:`then`.
+
+        Sequences the other rectangle after this one.
+
+        Args:
+            other: Another rectangle to sequence after this one.
+
+        Returns:
+            A new :class:`NDRectComplex` representing the sequence.
+
+        """
+        return self.then(other)
