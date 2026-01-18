@@ -77,15 +77,11 @@ class IsAligned(ABC):
     def then(self, other: IsAligned) -> NDRectComplex:
         """Sequences the other rectangle after this one.
 
-        Notes:
-            The returned object is a NDRectComplexUnaligned, which can be
-            aligned later through :meth:`along`.
-
         Args:
             other: Another rectangle to sequence after this one.
 
         Returns:
-            A new :class:`NDRectComplexUnaligned` representing the sequence.
+            A new :class:`NDRectComplex` representing the sequence.
 
         """
         rects = []
@@ -115,8 +111,7 @@ class IsAligned(ABC):
                 n=2 returns two in sequence, etc.
 
         Returns:
-            A new :class:`NDRectComplexUnaligned` representing the repeated
-            sequence.
+            A new :class:`NDRectComplex` representing the repeated sequence.
 
         """
         if isinstance(self, self._singular_type):
@@ -147,8 +142,7 @@ class IsAligned(ABC):
             n: Number of times to repeat.
 
         Returns:
-            A new :class:`NDRectComplexUnaligned` representing the repeated
-            sequence.
+            A new :class:`NDRectComplex` representing the repeated sequence.
 
         """
         return self.repeat(n)
@@ -162,7 +156,7 @@ class IsAligned(ABC):
             other: Another rectangle to sequence after this one.
 
         Returns:
-            A new :class:`NDRectComplexUnaligned` representing the sequence.
+            A new :class:`NDRectComplex` representing the sequence.
 
         """
         return self.then(other)
