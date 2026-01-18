@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from ndrect.ndrect_complex import NDRectComplex
 
 
-class IsAligned(ABC):
+class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
     """An interface for N-dimensional rectangles that have a defined shape."""
 
     @property
@@ -42,7 +42,7 @@ class IsAligned(ABC):
         self,
         bounding: Mapping[DimensionName, DimensionLength],
         fill_order: Sequence[DimensionName] | None = None,
-    ) -> NDRectComplex:
+    ) -> TComplex:
         """Fill the current rectangle until it matches the bounding shape.
 
         Args:
@@ -72,7 +72,7 @@ class IsAligned(ABC):
             prv_shape.append(nxt_shape.pop(0))
         return filled
 
-    def then(self, other: IsAligned) -> NDRectComplex:
+    def then(self, other: IsAligned) -> TComplex:
         """Sequences the other rectangle after this one.
 
         Args:
@@ -105,7 +105,7 @@ class IsAligned(ABC):
 
         return NDRectComplex(rects=rects)
 
-    def repeat(self, n: int = 2) -> NDRectComplex:
+    def repeat(self, n: int = 2) -> TComplex:
         """Repeats the current rectangle n times in sequence.
 
         Args:
@@ -127,13 +127,13 @@ class IsAligned(ABC):
 
     @property
     @abstractmethod
-    def _singular_type(self) -> type[NDRect]: ...
+    def _singular_type(self) -> type[TSingular]: ...
 
     @property
     @abstractmethod
-    def _complex_type(self) -> type[NDRectComplex]: ...
+    def _complex_type(self) -> type[TComplex]: ...
 
-    def __mul__(self, n: int) -> NDRectComplex:
+    def __mul__(self, n: int) -> TComplex:
         """Shorthand for :meth:`repeat`.
 
         Repeats the current rectangle n times.
@@ -147,7 +147,7 @@ class IsAligned(ABC):
         """
         return self.repeat(n)
 
-    def __add__(self, other: IsAligned) -> NDRectComplex:
+    def __add__(self, other: IsAligned) -> TComplex:
         """Shorthand for :meth:`then`.
 
         Sequences the other rectangle after this one.

@@ -28,7 +28,7 @@ class UnalignedError(Exception):
 
 
 @define(repr=False, frozen=True)
-class NDRectComplex(IsAligned):
+class NDRectComplex(IsAligned["NDRect", "NDRectComplex"]):
     """Aligned complex n-dim rectangle of multiple rectangles in sequence."""
 
     rects: Sequence[NDRect | NDRectComplex] = field(converter=tuple)

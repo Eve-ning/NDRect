@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 
 @define(repr=False)
-class NDRect(IsAligned):
+class NDRect(IsAligned["NDRect", "NDRectComplex"]):
     """An n-dim rectangle defined by its shape."""
 
     shape: Mapping[DimensionName, DimensionLength] = field(
