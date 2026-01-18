@@ -23,6 +23,10 @@ class NoAlignment:
         return "?"
 
 
+class UnalignedError(Exception):
+    """Exception for any invalid operation of an unaligned NDRectComplex."""
+
+
 @define(repr=False, frozen=True)
 class NDRectComplex(IsAligned):
     """Aligned complex n-dim rectangle of multiple rectangles in sequence."""
