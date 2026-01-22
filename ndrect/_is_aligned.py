@@ -72,6 +72,17 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
             prv_shape.append(nxt_shape.pop(0))
         return filled
 
+    def _as_sequence_object(
+        self,
+    ) -> tuple[TSingular | TComplex, ...]:
+        if isinstance(self, self._singular_type) or (
+            isinstance(self, self._complex_type) and self.aligned
+        ):
+            return (self,)
+        elif isinstance(self, self._complex_type):
+            return tuple(self.rects)
+        raise TypeError
+
     def then(self, other: IsAligned) -> TComplex:
         """Sequences the other rectangle after this one.
 
@@ -82,28 +93,9 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
             A new :class:`NDRectComplex` representing the sequence.
 
         """
-        rects = []
-        if isinstance(self, self._singular_type) or (
-            isinstance(self, self._complex_type) and self.aligned
-        ):
-            rects.append(self)
-        elif isinstance(self, self._complex_type):
-            rects.extend(self.rects)
-        else:
-            raise TypeError()
-
-        if isinstance(other, self._singular_type) or (
-            isinstance(other, self._complex_type) and other.aligned
-        ):
-            rects.append(other)
-        elif isinstance(other, self._complex_type):
-            rects.extend(other.rects)
-        else:
-            raise TypeError()
-
-        from ndrect.ndrect_complex import NDRectComplex
-
-        return NDRectComplex(rects=rects)
+        return self._complex_type(
+            rects=self._as_sequence_object() + other._as_sequence_object()
+        )
 
     def repeat(self, n: int = 2) -> TComplex:
         """Repeats the current rectangle n times in sequence.
