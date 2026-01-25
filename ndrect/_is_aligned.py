@@ -110,6 +110,21 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
         """
         return self._complex_type(rects=self._as_sequence_object() * n)
 
+    def elevate(self) -> TComplex:
+        """Elevates the dimensionality by 1 by wrapping in a complex type.
+
+        Returns:
+            A new :class:`NDRectComplex` representing the elevated rectangle.
+
+        """
+        if isinstance(self, self._singular_type):
+            rects = self._as_sequence_object()
+        elif isinstance(self, self._complex_type):
+            rects = (self,)
+        else:
+            raise TypeError
+        return self._complex_type(rects=rects)
+
     @property
     @abstractmethod
     def _singular_type(self) -> type[TSingular]: ...
@@ -145,3 +160,12 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
 
         """
         return self.then(other)
+
+    def __pos__(self) -> TComplex:
+        """Shorthand for :meth:`elevate`.
+
+        Returns:
+            A new :class:`NDRectComplex` representing the elevated rectangle.
+
+        """
+        return self.elevate()
