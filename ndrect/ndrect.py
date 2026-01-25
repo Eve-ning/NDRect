@@ -45,6 +45,3 @@ class NDRect(IsAligned["NDRect", "NDRectComplex"]):
         # To make NDRect hashable, we hash its shape by expanding the mapping
         # into a sorted tuple of items.
         return hash(tuple(sorted(self.shape.items())))
-
-    def __pos__(self):
-        return self._complex_type(rects=self._as_sequence_object())
