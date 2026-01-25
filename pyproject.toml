@@ -34,6 +34,13 @@ select = [
     # tryceratops
     "TRY",
 ]
+ignore = [
+    "D203",  # Disable `incorrect-blank-line-before-class`
+    "D213",  # Disable `multi-line-summary-second-line`
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
 
 [dependency-groups]
 docs = [
