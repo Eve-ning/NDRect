@@ -1,0 +1,26 @@
+name: "PyTest: Run Unit Tests"
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install `uv`
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install uv
+      - name: Set up Python with `uv`
+        run: |
+          uv python pin 3.14
+      - name: Install dependencies
+        run: |
+          uv sync
+      - name: Run unit tests
+        run: |
+          uv run pytest tests/
