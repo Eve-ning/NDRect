@@ -90,11 +90,11 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="ndrect.ndrect.NDRect">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndrect.ndrect.</span></span><span class="sig-name descname"><span class="pre">NDRect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndrect.ndrect.NDRect" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">IsAligned</span></code>[<a class="reference internal" href="#ndrect.ndrect.NDRect" title="ndrect.ndrect.NDRect"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRect</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplex</span></code>]</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectBase</span></code>[<a class="reference internal" href="#ndrect.ndrect.NDRect" title="ndrect.ndrect.NDRect"><code class="xref py py-class docutils literal notranslate"><span class="pre">NDRect</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">NDRectComplex</span></code>]</p>
 <p>An n-dim rectangle defined by its shape.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ndrect.ndrect.NDRect.__add__">
-<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">IsAligned</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TComplex</span></span></span><a class="headerlink" href="#ndrect.ndrect.NDRect.__add__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDRectBase</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TComplex</span></span></span><a class="headerlink" href="#ndrect.ndrect.NDRect.__add__" title="Link to this definition"></a></dt>
 <dd><p>Shorthand for <a class="reference internal" href="#ndrect.ndrect.NDRect.then" title="ndrect.ndrect.NDRect.then"><code class="xref py py-meth docutils literal notranslate"><span class="pre">then()</span></code></a>.</p>
 <p>Sequences the other rectangle after this one.</p>
 <dl class="field-list simple">
@@ -182,7 +182,7 @@ n=2 returns two in sequence, etc.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ndrect.ndrect.NDRect.then">
-<span class="sig-name descname"><span class="pre">then</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">IsAligned</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TComplex</span></span></span><a class="headerlink" href="#ndrect.ndrect.NDRect.then" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">then</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">NDRectBase</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TComplex</span></span></span><a class="headerlink" href="#ndrect.ndrect.NDRect.then" title="Link to this definition"></a></dt>
 <dd><p>Sequences the other rectangle after this one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
