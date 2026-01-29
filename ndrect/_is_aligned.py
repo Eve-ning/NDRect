@@ -125,6 +125,18 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
             raise TypeError
         return self._complex_type(rects=rects)
 
+    def along(self, align_dim: DimensionName) -> TComplex:
+        """Aligns this along a dimension to create a complex type.
+
+        Args:
+            align_dim: The dimension name along which to align the rectangles.
+
+        Returns:
+            A new complex type aligned along the specified dimension.
+        """
+        return self._complex_type(rects=self._as_sequence_object(), align_dim=align_dim)
+
+
     @property
     @abstractmethod
     def _singular_type(self) -> type[TSingular]: ...
@@ -169,3 +181,17 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
 
         """
         return self.elevate()
+
+    def __matmul__(self, align_dim: DimensionName) -> TComplex:
+        """Shorthand for :meth:`along`.
+
+        Aligning the complex rectangle along the specified dimension.
+
+        Args:
+            align_dim: The dimension name along which to align the rectangles.
+
+        Returns:
+            A new complex type aligned along the specified dimension.
+
+        """
+        return self.along(align_dim=align_dim)
