@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, override
 
 from attrs import define, field
 
-from ndrect._is_aligned import NDRectBase
+from ndrect._ndrect_base import NDRectBase
 from ndrect._typing import DimensionLength, DimensionName
 
 if TYPE_CHECKING:

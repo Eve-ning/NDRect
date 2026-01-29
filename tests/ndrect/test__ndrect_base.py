@@ -8,7 +8,7 @@ import pytest
 from attrs import define
 
 from ndrect import NDRect
-from ndrect._is_aligned import NDRectBase
+from ndrect._ndrect_base import NDRectBase
 from ndrect._typing import DimensionLength, DimensionName
 from ndrect.ndrect_complex import NDRectComplex
 

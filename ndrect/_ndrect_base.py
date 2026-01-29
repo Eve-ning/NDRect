@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 
 class NDRectBase[TSingular: NDRect, TComplex: NDRectComplex](ABC):
-    """Base class for N-dimensional rectangles"""
+    """Base class for N-dimensional rectangles."""
 
     @property
     @abstractmethod
