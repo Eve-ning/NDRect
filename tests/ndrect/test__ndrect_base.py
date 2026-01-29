@@ -8,12 +8,12 @@ import pytest
 from attrs import define
 
 from ndrect import NDRect
-from ndrect._is_aligned import IsAligned
+from ndrect._is_aligned import NDRectBase
 from ndrect._typing import DimensionLength, DimensionName
 from ndrect.ndrect_complex import NDRectComplex
 
 
-class MockIsAligned(IsAligned):
+class MockNDRectBase(NDRectBase):
     @property
     def shape(self) -> MappingProxyType[DimensionName, DimensionLength]:
         return ...
@@ -49,9 +49,9 @@ class MockNDRectComplex(NDRectComplex):
         return MockNDRectComplex
 
 
-@patch.object(MockIsAligned, "shape", new_callable=PropertyMock)
+@patch.object(MockNDRectBase, "shape", new_callable=PropertyMock)
 def test_ndim_is_len_of_shape(mock_shape: PropertyMock) -> None:
-    obj = MockIsAligned()
+    obj = MockNDRectBase()
     ndim = obj.ndim
     mock_shape.assert_called_once()
     assert ndim == len(obj.shape)
@@ -131,31 +131,31 @@ def test_along_creates_complex_with_align_dim_using_as_sequence_object(
 
 
 def test___add__calls_then() -> None:
-    with patch.object(MockIsAligned, "then") as mock_then:
-        obj_a = MockIsAligned()
-        obj_b = MockIsAligned()
+    with patch.object(MockNDRectBase, "then") as mock_then:
+        obj_a = MockNDRectBase()
+        obj_b = MockNDRectBase()
         assert obj_a + obj_b == mock_then.return_value
         mock_then.assert_called_once_with(obj_b)
 
 
 def test___mul__calls_repeat() -> None:
-    with patch.object(MockIsAligned, "repeat") as mock_repeat:
-        obj = MockIsAligned()
+    with patch.object(MockNDRectBase, "repeat") as mock_repeat:
+        obj = MockNDRectBase()
         n = MagicMock()
         assert obj * n == mock_repeat.return_value
         mock_repeat.assert_called_once_with(n)
 
 
 def test__pos__calls_elevate() -> None:
-    with patch.object(MockIsAligned, "elevate") as mock_elevate:
-        obj = MockIsAligned()
+    with patch.object(MockNDRectBase, "elevate") as mock_elevate:
+        obj = MockNDRectBase()
         assert +obj == mock_elevate.return_value
         mock_elevate.assert_called_once()
 
 
 def test__matmul__calls_along() -> None:
-    with patch.object(MockIsAligned, "along") as mock_along:
-        obj = MockIsAligned()
+    with patch.object(MockNDRectBase, "along") as mock_along:
+        obj = MockNDRectBase()
         dim = MagicMock()
         assert obj @ dim == mock_along.return_value
         mock_along.assert_called_once_with(align_dim=dim)

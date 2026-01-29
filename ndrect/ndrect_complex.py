@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, override
 
 from attrs import define, field
 
-from ndrect._is_aligned import IsAligned
+from ndrect._is_aligned import NDRectBase
 from ndrect._typing import DimensionLength, DimensionName
 
 if TYPE_CHECKING:
@@ -28,7 +28,7 @@ class UnalignedError(Exception):
 
 
 @define(repr=False, frozen=True)
-class NDRectComplex(IsAligned["NDRect", "NDRectComplex"]):
+class NDRectComplex(NDRectBase["NDRect", "NDRectComplex"]):
     """Aligned complex n-dim rectangle of multiple rectangles in sequence."""
 
     rects: Sequence[NDRect | NDRectComplex] = field(converter=tuple)

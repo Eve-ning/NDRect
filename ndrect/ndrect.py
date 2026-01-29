@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING, override
 
 from attrs import define, field
 
-from ndrect._is_aligned import IsAligned
+from ndrect._is_aligned import NDRectBase
 from ndrect._typing import DimensionLength, DimensionName
 
 if TYPE_CHECKING:
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 
 @define(repr=False)
-class NDRect(IsAligned["NDRect", "NDRectComplex"]):
+class NDRect(NDRectBase["NDRect", "NDRectComplex"]):
     """An n-dim rectangle defined by its shape."""
 
     shape: Mapping[DimensionName, DimensionLength] = field(
