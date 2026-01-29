@@ -133,9 +133,11 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
 
         Returns:
             A new complex type aligned along the specified dimension.
-        """
-        return self._complex_type(rects=self._as_sequence_object(), align_dim=align_dim)
 
+        """
+        return self._complex_type(
+            rects=self._as_sequence_object(), align_dim=align_dim
+        )
 
     @property
     @abstractmethod

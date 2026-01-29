@@ -102,4 +102,3 @@ class NDRectComplex(IsAligned["NDRect", "NDRectComplex"]):
     def __iter__(self) -> Iterator[NDRect | NDRectComplex]:
         """Iterate over the rectangles in this complex rectangle."""
         yield from self.rects
-

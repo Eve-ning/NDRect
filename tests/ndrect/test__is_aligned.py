@@ -115,6 +115,21 @@ def test_elevate_on_complex_returns_complex_of_collection() -> None:
     )
 
 
+@pytest.mark.parametrize(
+    "obj",
+    [
+        MockNDRect({0: 1}),
+        MockNDRectComplex([MockNDRect({0: 1})]),
+    ],
+)
+def test_along_creates_complex_with_align_dim_using_as_sequence_object(
+    obj,
+) -> None:
+    assert obj.along(0) == obj._complex_type(
+        obj._as_sequence_object(), align_dim=0
+    )
+
+
 def test___add__calls_then() -> None:
     with patch.object(MockIsAligned, "then") as mock_then:
         obj_a = MockIsAligned()
@@ -136,6 +151,14 @@ def test__pos__calls_elevate() -> None:
         obj = MockIsAligned()
         assert +obj == mock_elevate.return_value
         mock_elevate.assert_called_once()
+
+
+def test__matmul__calls_along() -> None:
+    with patch.object(MockIsAligned, "along") as mock_along:
+        obj = MockIsAligned()
+        dim = MagicMock()
+        assert obj @ dim == mock_along.return_value
+        mock_along.assert_called_once_with(align_dim=dim)
 
 
 @pytest.mark.parametrize(
