@@ -49,3 +49,14 @@ docs = [
     "sphinx-autobuild>=2025.8.25",
     "sphinx-rtd-theme>=3.0.2",
 ]
+tests = [
+    "pytest>=9.0.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.27,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "ndrect"
+module-root = ""
