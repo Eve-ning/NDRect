@@ -139,7 +139,7 @@ def test__pos__calls_elevate() -> None:
 
 
 @pytest.mark.parametrize(
-    "type_", [MockNDRect, lambda shape: +MockNDRect(shape) @ 0]
+    "type_", [MockNDRect, lambda shape: MockNDRect(shape) @ 0]
 )
 @pytest.mark.parametrize("len_initial", [0, 1, 2])
 @pytest.mark.parametrize("len_target", [0, 1, 2])

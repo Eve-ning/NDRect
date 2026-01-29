@@ -67,18 +67,6 @@ class NDRectComplex(IsAligned["NDRect", "NDRectComplex"]):
                 )
         return dict(shape)
 
-    def along(self, align_dim: DimensionName) -> NDRectComplex:
-        """Aligns this along a dimension to create a NDRectComplex.
-
-        Args:
-            align_dim: The dimension name along which to align the rectangles.
-
-        Returns:
-            A new :class:`NDRectComplex` aligned along the specified dimension.
-
-        """
-        return self._complex_type(rects=self.rects, align_dim=align_dim)
-
     @property
     def aligned(self) -> bool:
         return not isinstance(self.align_dim, NoAlignment)
@@ -115,16 +103,3 @@ class NDRectComplex(IsAligned["NDRect", "NDRectComplex"]):
         """Iterate over the rectangles in this complex rectangle."""
         yield from self.rects
 
-    def __matmul__(self, align_dim: DimensionName) -> NDRectComplex:
-        """Shorthand for :meth:`along`.
-
-        Aligning the complex rectangle along the specified dimension.
-
-        Args:
-            align_dim: The dimension name along which to align the rectangles.
-
-        Returns:
-            A new :class:`NDRectComplex` aligned along the specified dimension.
-
-        """
-        return self.along(align_dim=align_dim)
