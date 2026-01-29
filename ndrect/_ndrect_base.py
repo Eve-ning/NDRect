@@ -1,4 +1,4 @@
-"""IsAligned interface for N-dimensional rectangles with defined shapes."""
+"""Base class for N-dimensional rectangles."""
 
 from __future__ import annotations
 
@@ -14,8 +14,8 @@ if TYPE_CHECKING:
     from ndrect.ndrect_complex import NDRectComplex
 
 
-class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
-    """An interface for N-dimensional rectangles that have a defined shape."""
+class NDRectBase[TSingular: NDRect, TComplex: NDRectComplex](ABC):
+    """Base class for N-dimensional rectangles."""
 
     @property
     @abstractmethod
@@ -83,7 +83,7 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
             return tuple(self.rects)
         raise TypeError
 
-    def then(self, other: IsAligned) -> TComplex:
+    def then(self, other: NDRectBase) -> TComplex:
         """Sequences the other rectangle after this one.
 
         Args:
@@ -161,7 +161,7 @@ class IsAligned[TSingular: NDRect, TComplex: NDRectComplex](ABC):
         """
         return self.repeat(n)
 
-    def __add__(self, other: IsAligned) -> TComplex:
+    def __add__(self, other: NDRectBase) -> TComplex:
         """Shorthand for :meth:`then`.
 
         Sequences the other rectangle after this one.
