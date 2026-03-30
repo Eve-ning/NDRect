@@ -16,6 +16,8 @@
       <script src="_static/documentation_options.js?v=01f34227"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -112,9 +114,9 @@ in sequential integer dimensions. That is, you can define <code class="docutils 
 <p>When sequenced with one another, will form a Unaligned Complex Hyper-rectangle. This Unaligned Complex Hyper-rectangle
 must be aligned along a single axis to resolve into a Complex Hyper-rectangle</p>
 <ul class="simple">
-<li><p><strong>Complex</strong> in this case, implies multiple <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> as a sequence</p></li>
-<li><p><strong>Alignment</strong> implies a certain axis that the sequence of <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> objects are aligned along.</p></li>
-<li><p><strong>Unaligned</strong> would mean there’s no axis that the sequence of <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> objects are aligned along.</p></li>
+<li><p><strong>Unaligned</strong> would mean there’s no axis that the sequence of <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> objects are aligned along. Therefore, an <strong>Aligned</strong>
+implies a certain axis that the sequence of <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> objects are aligned along.</p></li>
+<li><p><strong>Complex</strong> means an object containing multiple <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> objects.</p></li>
 </ul>
 <p>For example, given two <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> rectangles:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>R1  R2
@@ -143,11 +145,66 @@ R1 + R2 Along Axis 1 (Vertical)
 <span class="n">r1</span> <span class="o">=</span> <span class="n">NDRect</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
 <span class="n">r2</span> <span class="o">=</span> <span class="n">NDRect</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
 
+<span class="c1"># Align along axis 0</span>
 <span class="k">assert</span> <span class="n">r1</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span><span class="o">.</span><span class="n">along</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+
+<span class="c1"># Align along axis 1</span>
 <span class="k">assert</span> <span class="n">r1</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span><span class="o">.</span><span class="n">along</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Notice that when we sequence them along axis 1, its shape is the shape of minimal bounding rectangle that contains both <code class="docutils literal notranslate"><span class="pre">R1</span></code> and <code class="docutils literal notranslate"><span class="pre">R2</span></code>.</p>
+</section>
+<section id="string-representations">
+<h2>String Representations<a class="headerlink" href="#string-representations" title="Link to this heading"></a></h2>
+<p>All objects have custom representations that displays compactly on the terminal.</p>
+<section id="ndrect-representation">
+<h3><code class="docutils literal notranslate"><span class="pre">NDRect</span></code> Representation<a class="headerlink" href="#ndrect-representation" title="Link to this heading"></a></h3>
+<p>This is the template representation of an <code class="docutils literal notranslate"><span class="pre">NDRect</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/&lt;Dim A Name&gt;: &lt;Dim A Length&gt;,
+ &lt;Dim B Name&gt;: &lt;Dim B Length&gt;,
+ ..., 
+ &lt;Dim Z Name&gt;: &lt;Dim Z Length&gt;/
+</pre></div>
+</div>
+<p>For example a 2D rectangle of size <span class="math notranslate nohighlight">\(3\times4\)</span> (<span class="math notranslate nohighlight">\(\text{Height}\times\text{Width}\)</span>) would be represented like so:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ndrect</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDRect</span>
+<span class="gp">... </span><span class="n">NDRect</span><span class="p">({</span><span class="s2">&quot;Height&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Width&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+
+<span class="go">/&#39;Height&#39;: 3, &#39;Width&#39;: 4/</span>
+</pre></div>
+</div>
+</section>
+<section id="ndrectcomplex-representation">
+<h3><code class="docutils literal notranslate"><span class="pre">NDRectComplex</span></code> Representation<a class="headerlink" href="#ndrectcomplex-representation" title="Link to this heading"></a></h3>
+<p>This is the template representation of an <code class="docutils literal notranslate"><span class="pre">NDRectComplex</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;Composite NDRect Representation&gt;@D&lt;Aligned Dim Name&gt;
+</pre></div>
+</div>
+<p>As <code class="docutils literal notranslate"><span class="pre">NDRectComplex</span></code> objects can contain <code class="docutils literal notranslate"><span class="pre">NDRectComplex</span></code> or <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> objects, the representation is recursive. We use the placeholder <code class="docutils literal notranslate"><span class="pre">&lt;Composite</span> <span class="pre">NDRect</span> <span class="pre">Representation&gt;</span></code> to represent.</p>
+<p>To represent two <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> or <code class="docutils literal notranslate"><span class="pre">NDRectComplex</span></code> instances sequenced together, a <code class="docutils literal notranslate"><span class="pre">+</span></code> sign is used.</p>
+<p>For example two 2D rectangle of size <span class="math notranslate nohighlight">\(3\times4\)</span> (<span class="math notranslate nohighlight">\(\text{Height}\times\text{Width}\)</span>) aligned along the <span class="math notranslate nohighlight">\(\text{Height}\)</span> axis would be represented like so:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ndrect</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDRect</span>
+<span class="gp">... </span><span class="n">NDRect</span><span class="p">({</span><span class="s2">&quot;Height&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Width&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">@</span> <span class="s2">&quot;Height&quot;</span>
+
+<span class="go">(/&#39;Height&#39;: 3, &#39;Width&#39;: 4/+/&#39;Height&#39;: 3, &#39;Width&#39;: 4/@DHeight)</span>
+</pre></div>
+</div>
+<p>… and if they were not aligned at all, the <code class="docutils literal notranslate"><span class="pre">&lt;Aligned</span> <span class="pre">Dim</span> <span class="pre">Name&gt;</span></code> will be replaced by a <code class="docutils literal notranslate"><span class="pre">?</span></code>.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ndrect</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDRect</span>
+<span class="gp">... </span><span class="n">NDRect</span><span class="p">({</span><span class="s2">&quot;Height&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Width&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="go">(/&#39;Height&#39;: 3, &#39;Width&#39;: 4/+/&#39;Height&#39;: 3, &#39;Width&#39;: 4/@D?)</span>
+</pre></div>
+</div>
+<p>If we then doubled the size of this complex rectangle, along the “Width” axis, the representation will recurse itself.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">ndrect</span><span class="w"> </span><span class="kn">import</span> <span class="n">NDRect</span>
+<span class="gp">... </span><span class="n">NDRect</span><span class="p">({</span><span class="s2">&quot;Height&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Width&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">@</span> <span class="s2">&quot;Height&quot;</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">@</span> <span class="s2">&quot;Width&quot;</span>
+
+<span class="go">((/&#39;Height&#39;: 3, &#39;Width&#39;: 4/+/&#39;Height&#39;: 3, &#39;Width&#39;: 4/@DHeight)+</span>
+<span class="go">(/&#39;Height&#39;: 3, &#39;Width&#39;: 4/+/&#39;Height&#39;: 3, &#39;Width&#39;: 4/@DHeight)@DWidth)</span>
+</pre></div>
+</div>
+<p>As expected, the console will be cluttered with many <code class="docutils literal notranslate"><span class="pre">NDRect</span></code> components.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">API</span></p>
 <ul>
@@ -155,6 +212,7 @@ R1 + R2 Along Axis 1 (Vertical)
 <li class="toctree-l1"><a class="reference internal" href="api/ndrectcomplex.html">NDRectComplex API</a></li>
 </ul>
 </div>
+</section>
 </section>
 </section>
 
