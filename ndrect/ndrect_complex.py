@@ -69,6 +69,7 @@ class NDRectComplex(NDRectBase["NDRect", "NDRectComplex"]):
 
     @property
     def aligned(self) -> bool:
+        """Whether this object has any alignment."""
         return not isinstance(self.align_dim, NoAlignment)
 
     @property

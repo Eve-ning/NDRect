@@ -1,52 +1,19 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
-from types import MappingProxyType
 from unittest.mock import MagicMock, Mock, PropertyMock, patch
 
 import pytest
-from attrs import define
 
 from ndrect import NDRect
 from ndrect._ndrect_base import NDRectBase
-from ndrect._typing import DimensionLength, DimensionName
+from ndrect._typing import DimensionLength
 from ndrect.ndrect_complex import NDRectComplex
-
-
-class MockNDRectBase(NDRectBase):
-    @property
-    def shape(self) -> MappingProxyType[DimensionName, DimensionLength]:
-        return ...
-
-    @property
-    def _singular_type(self) -> type[MockNDRect]:
-        return MockNDRect
-
-    @property
-    def _complex_type(self) -> type[MockNDRectComplex]:
-        return MockNDRectComplex
-
-
-@define
-class MockNDRect(NDRect):
-    @property
-    def _singular_type(self) -> type[MockNDRect]:
-        return MockNDRect
-
-    @property
-    def _complex_type(self) -> type[MockNDRectComplex]:
-        return MockNDRectComplex
-
-
-@define
-class MockNDRectComplex(NDRectComplex):
-    @property
-    def _singular_type(self) -> type[MockNDRect]:
-        return MockNDRect
-
-    @property
-    def _complex_type(self) -> type[MockNDRectComplex]:
-        return MockNDRectComplex
+from tests.ndrect.mock_ndrect import (
+    MockNDRect,
+    MockNDRectBase,
+    MockNDRectComplex,
+)
 
 
 @patch.object(MockNDRectBase, "shape", new_callable=PropertyMock)
@@ -123,7 +90,7 @@ def test_elevate_on_complex_returns_complex_of_collection() -> None:
     ],
 )
 def test_along_creates_complex_with_align_dim_using_as_sequence_object(
-    obj,
+    obj: NDRectBase[NDRect, NDRectComplex],
 ) -> None:
     assert obj.along(0) == obj._complex_type(
         obj._as_sequence_object(), align_dim=0
