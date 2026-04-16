@@ -28,10 +28,12 @@ class UnalignedError(Exception):
 
 
 @define(repr=False, frozen=True)
-class NDRectComplex(NDRectBase["NDRect", "NDRectComplex"]):
+class NDRectComplex[TSingular: NDRect, TComplex: NDRectComplex](
+    NDRectBase[TSingular, TComplex]
+):
     """Aligned complex n-dim rectangle of multiple rectangles in sequence."""
 
-    rects: Sequence[NDRect | NDRectComplex] = field(converter=tuple)
+    rects: Sequence[TSingular | TComplex] = field(converter=tuple)
     align_dim: DimensionName = field(factory=NoAlignment)
 
     def __attrs_post_init__(self) -> None:  # noqa: D105
@@ -74,14 +76,14 @@ class NDRectComplex(NDRectBase["NDRect", "NDRectComplex"]):
 
     @property
     @override
-    def _singular_type(self) -> type[NDRect]:
+    def _singular_type(self) -> type[TSingular]:
         from ndrect.ndrect import NDRect
 
         return NDRect
 
     @property
     @override
-    def _complex_type(self) -> type[NDRectComplex]:
+    def _complex_type(self) -> type[TComplex]:
         return NDRectComplex
 
     @override
@@ -92,7 +94,7 @@ class NDRectComplex(NDRectBase["NDRect", "NDRectComplex"]):
             + f"@D{self.align_dim!s})"
         )
 
-    def __getitem__(self, item: int) -> NDRect | NDRectComplex:
+    def __getitem__(self, item: int) -> TSingular | TComplex:
         """Get the rectangle at the specified index."""
         return self.rects[item]
 
@@ -100,6 +102,6 @@ class NDRectComplex(NDRectBase["NDRect", "NDRectComplex"]):
         """Count of rectangles in this alignment."""
         return len(self.rects)
 
-    def __iter__(self) -> Iterator[NDRect | NDRectComplex]:
+    def __iter__(self) -> Iterator[TSingular | TComplex]:
         """Iterate over the rectangles in this complex rectangle."""
         yield from self.rects

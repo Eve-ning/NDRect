@@ -17,7 +17,9 @@ if TYPE_CHECKING:
 
 
 @define(repr=False)
-class NDRect(NDRectBase["NDRect", "NDRectComplex"]):
+class NDRect[TSingular: NDRect, TComplex: NDRectComplex](
+    NDRectBase[TSingular, TComplex]
+):
     """An n-dim rectangle defined by its shape."""
 
     shape: Mapping[DimensionName, DimensionLength] = field(
@@ -26,12 +28,12 @@ class NDRect(NDRectBase["NDRect", "NDRectComplex"]):
 
     @property
     @override
-    def _singular_type(self) -> type[NDRect]:
+    def _singular_type(self) -> type[TSingular]:
         return NDRect
 
     @property
     @override
-    def _complex_type(self) -> type[NDRectComplex]:
+    def _complex_type(self) -> type[TComplex]:
         from ndrect.ndrect_complex import NDRectComplex
 
         return NDRectComplex
