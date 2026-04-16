@@ -8,7 +8,7 @@ from ndrect._typing import DimensionLength, DimensionName
 from ndrect.ndrect_complex import NDRectComplex
 
 
-class MockNDRectBase(NDRectBase):
+class MockNDRectBase(NDRectBase["MockNDRect", "MockNDRectComplex"]):
     @property
     def shape(self) -> MappingProxyType[DimensionName, DimensionLength]:
         return ...
@@ -23,7 +23,7 @@ class MockNDRectBase(NDRectBase):
 
 
 @define
-class MockNDRect(NDRect):
+class MockNDRect(NDRect["MockNDRect", "MockNDRectComplex"]):
     @property
     def _singular_type(self) -> type[MockNDRect]:
         return MockNDRect
@@ -34,7 +34,7 @@ class MockNDRect(NDRect):
 
 
 @define
-class MockNDRectComplex(NDRectComplex):
+class MockNDRectComplex(NDRectComplex["MockNDRect", "MockNDRectComplex"]):
     @property
     def _singular_type(self) -> type[MockNDRect]:
         return MockNDRect
