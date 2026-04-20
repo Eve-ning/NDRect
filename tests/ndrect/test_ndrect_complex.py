@@ -1,7 +1,6 @@
 import pytest
 
-from ndrect import NDRect
-from ndrect.ndrect_complex import NDRectComplex, UnalignedError
+from ndrect import NDRect, NDRectComplex, UnalignedError
 from tests.ndrect.mock_ndrect import MockNDRectComplex
 
 

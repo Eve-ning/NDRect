@@ -5,10 +5,9 @@ from unittest.mock import MagicMock, Mock, PropertyMock, patch
 
 import pytest
 
-from ndrect import NDRect
+from ndrect import NDRect, NDRectComplex
 from ndrect._ndrect_base import NDRectBase
 from ndrect._typing import DimensionLength
-from ndrect.ndrect_complex import NDRectComplex
 from tests.ndrect.mock_ndrect import (
     MockNDRect,
     MockNDRectBase,

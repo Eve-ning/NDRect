@@ -2,10 +2,9 @@ from types import MappingProxyType
 
 from attrs import define
 
-from ndrect import NDRect
+from ndrect import NDRect, NDRectComplex
 from ndrect._ndrect_base import NDRectBase
 from ndrect._typing import DimensionLength, DimensionName
-from ndrect.ndrect_complex import NDRectComplex
 
 
 class MockNDRectBase(NDRectBase["MockNDRect", "MockNDRectComplex"]):
